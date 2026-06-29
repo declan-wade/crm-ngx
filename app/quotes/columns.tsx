@@ -1,11 +1,10 @@
 "use client";
 
-import { PencilIcon } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import type { QuoteStatus } from "@prisma/client";
 import { formatMoney, formatDate } from "@/lib/format";
 import { StatusBadge } from "@/components/status-badge";
-import { ModalButton } from "@/components/modal";
+import { RowActions } from "@/components/row-actions";
 import { QuoteForm } from "./forms";
 
 export type QuoteRow = {
@@ -53,7 +52,7 @@ export const columns: ColumnDef<QuoteRow>[] = [
     id: "actions",
     header: "",
     cell: ({ row }) => (
-      <ModalButton icon={<PencilIcon />} variant="ghost" size="icon-sm" title="Edit Quote">
+      <RowActions editTitle="Edit Quote" editForm={
         <QuoteForm
           record={{
             id: row.original.id,
@@ -64,7 +63,7 @@ export const columns: ColumnDef<QuoteRow>[] = [
             notes: row.original.notes,
           }}
         />
-      </ModalButton>
+      } />
     ),
   },
 ];

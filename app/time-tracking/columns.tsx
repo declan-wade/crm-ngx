@@ -1,9 +1,8 @@
 "use client";
 
-import { PencilIcon } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { formatDate } from "@/lib/format";
-import { ModalButton } from "@/components/modal";
+import { RowActions } from "@/components/row-actions";
 import { TimeEntryForm } from "./forms";
 
 export type TimeEntryRow = {
@@ -52,7 +51,7 @@ export const columns: ColumnDef<TimeEntryRow>[] = [
     id: "actions",
     header: "",
     cell: ({ row }) => (
-      <ModalButton icon={<PencilIcon />} variant="ghost" size="icon-sm" title="Edit Time Entry">
+      <RowActions editTitle="Edit Time Entry" editForm={
         <TimeEntryForm
           record={{
             id: row.original.id,
@@ -64,7 +63,7 @@ export const columns: ColumnDef<TimeEntryRow>[] = [
             description: row.original.description,
           }}
         />
-      </ModalButton>
+      } />
     ),
   },
 ];

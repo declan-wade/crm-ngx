@@ -1,11 +1,10 @@
 "use client";
 
 import { useTransition } from "react";
-import { Trash2Icon } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { useRouter } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
+import { RowActions } from "@/components/row-actions";
 import { formatMoney } from "@/lib/format";
 import { deleteInvoiceLineItem } from "./actions";
 
@@ -18,25 +17,24 @@ export type LineItemRow = {
   lineTotal: number;
 };
 
-function DeleteLineItemButton({ id }: { id: string }) {
-  const [isPending, startTransition] = useTransition();
+function LineItemRowActions({ id }: { id: string }) {
+  const [, startTransition] = useTransition();
   const router = useRouter();
 
   return (
-    <Button
-      variant="outline"
-      size="icon"
-      aria-label="Delete line item"
-      disabled={isPending}
-      onClick={() =>
-        startTransition(async () => {
-          await deleteInvoiceLineItem(id);
-          router.refresh();
-        })
-      }
-    >
-      <Trash2Icon />
-    </Button>
+    <RowActions
+      actions={[
+        {
+          label: "Delete",
+          destructive: true,
+          onSelect: () =>
+            startTransition(async () => {
+              await deleteInvoiceLineItem(id);
+              router.refresh();
+            }),
+        },
+      ]}
+    />
   );
 }
 
@@ -67,6 +65,6 @@ export const columns: ColumnDef<LineItemRow>[] = [
   {
     id: "actions",
     header: "",
-    cell: ({ row }) => <DeleteLineItemButton id={row.original.id} />,
+    cell: ({ row }) => <LineItemRowActions id={row.original.id} />,
   },
 ];

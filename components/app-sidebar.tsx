@@ -3,9 +3,8 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { LogOutIcon } from "lucide-react"
+import { LogOutIcon, GalleryVerticalEndIcon } from "lucide-react"
 
-import { VersionSwitcher } from "@/components/version-switcher"
 import {
   Sidebar,
   SidebarContent,
@@ -19,7 +18,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
-import { navMain, versions } from "@/lib/navigation"
+import { navMain } from "@/lib/navigation"
 import { authClient } from "@/lib/auth/client"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -36,7 +35,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <VersionSwitcher versions={versions} defaultVersion={versions[0]} />
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <div className="flex items-center gap-2 p-2">
+              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                <GalleryVerticalEndIcon className="size-4" />
+              </div>
+              <div className="flex flex-col gap-0.5 leading-none">
+                <span className="font-medium">CRM-NGX</span>
+                <span className="text-xs text-muted-foreground">
+                  Hi, {session?.user?.name ?? "there"}
+                </span>
+              </div>
+            </div>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         {navMain.map((group) => (

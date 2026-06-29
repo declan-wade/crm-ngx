@@ -1,11 +1,10 @@
 "use client";
 
-import { PencilIcon } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import type { DealStage } from "@prisma/client";
 import { formatMoney, formatDate } from "@/lib/format";
 import { StatusBadge } from "@/components/status-badge";
-import { ModalButton } from "@/components/modal";
+import { RowActions } from "@/components/row-actions";
 import { DealForm } from "./forms";
 
 export type DealRow = {
@@ -46,7 +45,7 @@ export const columns: ColumnDef<DealRow>[] = [
     id: "actions",
     header: "",
     cell: ({ row }) => (
-      <ModalButton icon={<PencilIcon />} variant="ghost" size="icon-sm" title="Edit Deal">
+      <RowActions editTitle="Edit Deal" editForm={
         <DealForm
           record={{
             id: row.original.id,
@@ -57,7 +56,7 @@ export const columns: ColumnDef<DealRow>[] = [
             expectedCloseDate: row.original.expectedCloseDate,
           }}
         />
-      </ModalButton>
+      } />
     ),
   },
 ];

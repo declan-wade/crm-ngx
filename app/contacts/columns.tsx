@@ -1,9 +1,8 @@
 "use client";
 
-import { PencilIcon } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import type { Contact } from "@prisma/client";
-import { ModalButton } from "@/components/modal";
+import { RowActions } from "@/components/row-actions";
 import { ContactForm } from "./forms";
 
 export const columns: ColumnDef<Contact>[] = [
@@ -39,7 +38,7 @@ export const columns: ColumnDef<Contact>[] = [
     id: "actions",
     header: "",
     cell: ({ row }) => (
-      <ModalButton icon={<PencilIcon />} variant="ghost" size="icon-sm" title="Edit Contact">
+      <RowActions editTitle="Edit Contact" editForm={
         <ContactForm
           record={{
             id: row.original.id,
@@ -51,7 +50,7 @@ export const columns: ColumnDef<Contact>[] = [
             companyId: row.original.companyId,
           }}
         />
-      </ModalButton>
+      } />
     ),
   },
 ];

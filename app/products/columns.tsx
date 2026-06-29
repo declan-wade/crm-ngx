@@ -1,11 +1,10 @@
 "use client";
 
-import { PencilIcon } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import type { ProductType } from "@prisma/client";
 import { formatMoney } from "@/lib/format";
 import { StatusBadge } from "@/components/status-badge";
-import { ModalButton } from "@/components/modal";
+import { RowActions } from "@/components/row-actions";
 import { ProductForm } from "./forms";
 
 export type ProductRow = {
@@ -41,7 +40,7 @@ export const columns: ColumnDef<ProductRow>[] = [
     id: "actions",
     header: "",
     cell: ({ row }) => (
-      <ModalButton icon={<PencilIcon />} variant="ghost" size="icon-sm" title="Edit Product">
+      <RowActions editTitle="Edit Product" editForm={
         <ProductForm
           record={{
             id: row.original.id,
@@ -52,7 +51,7 @@ export const columns: ColumnDef<ProductRow>[] = [
             description: row.original.description,
           }}
         />
-      </ModalButton>
+      } />
     ),
   },
 ];

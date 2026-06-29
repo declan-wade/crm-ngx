@@ -14,7 +14,7 @@ import {
 // Provides the close-and-refresh callback to forms rendered inside the modal,
 // so a form can dismiss the modal and revalidate the page after a successful
 // submit without the page having to pass a function across the RSC boundary.
-const ModalSuccessContext = createContext<(() => void) | null>(null)
+export const ModalSuccessContext = createContext<(() => void) | null>(null)
 
 export function useModalSuccess() {
   return useContext(ModalSuccessContext)

@@ -1,10 +1,9 @@
 "use client";
 
-import { PencilIcon } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { formatDate } from "@/lib/format";
 import { StatusBadge } from "@/components/status-badge";
-import { ModalButton } from "@/components/modal";
+import { RowActions } from "@/components/row-actions";
 import { AuthUserForm } from "./forms";
 import type { AuthUser } from "@/lib/auth/users";
 
@@ -36,9 +35,9 @@ export const columns: ColumnDef<AuthUser>[] = [
     id: "actions",
     header: "",
     cell: ({ row }) => (
-      <ModalButton icon={<PencilIcon />} variant="ghost" size="icon-sm" title="Edit User">
+      <RowActions editTitle="Edit User" editForm={
         <AuthUserForm record={row.original} />
-      </ModalButton>
+      } />
     ),
   },
 ];
