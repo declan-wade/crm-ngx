@@ -1,28 +1,34 @@
 "use client";
 
+import Link from "next/link";
 import { ColumnDef } from "@tanstack/react-table";
 import type { QuoteStatus } from "@prisma/client";
 import { formatMoney, formatDate } from "@/lib/format";
 import { StatusBadge } from "@/components/status-badge";
 import { RowActions } from "@/components/row-actions";
-import { QuoteForm } from "./forms";
 
 export type QuoteRow = {
   id: string;
   number: string;
-  companyId: string;
   companyName: string;
   status: QuoteStatus;
   total: number;
   issueDate: Date;
   expiryDate: Date | null;
-  notes: string | null;
 };
 
 export const columns: ColumnDef<QuoteRow>[] = [
   {
     accessorKey: "number",
     header: "Number",
+    cell: ({ row }) => (
+      <Link
+        href={`/quotes/${row.original.id}`}
+        className="font-medium text-primary underline-offset-4 hover:underline"
+      >
+        {row.original.number}
+      </Link>
+    ),
   },
   {
     accessorKey: "companyName",
@@ -53,19 +59,6 @@ export const columns: ColumnDef<QuoteRow>[] = [
     header: "",
     cell: ({ row }) => (
       <RowActions
-        editTitle="Edit Quote"
-        editForm={
-          <QuoteForm
-            record={{
-              id: row.original.id,
-              number: row.original.number,
-              status: row.original.status,
-              companyId: row.original.companyId,
-              expiryDate: row.original.expiryDate,
-              notes: row.original.notes,
-            }}
-          />
-        }
         actions={[
           {
             label: "Download PDF",
