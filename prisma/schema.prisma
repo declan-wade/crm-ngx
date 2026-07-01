@@ -97,7 +97,6 @@ model User {
   timeEntries    TimeEntry[]
   quotes         Quote[]
   invoices       Invoice[]
-  activities     Activity[]
 }
 
 // Generic audit trail for every entity. entityType/entityId identify the
@@ -108,8 +107,10 @@ model Activity {
   entityId   String
   action     ActivityAction
   summary    String?
+  // Neon Auth user id (neon_auth."user".id) of the actor; null for system
+  // entries. Deliberately not a Prisma relation: login accounts live in the
+  // neon_auth schema, so actor names are resolved in lib/activity, not via a FK.
   userId     String?
-  user       User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
   createdAt  DateTime       @default(now())
 
   @@index([entityType, entityId])
