@@ -20,6 +20,20 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Gypsum",
   description: "A simple CRM.",
+  icons: {
+    apple: [
+      {
+        url: "/Icon-iOS-Default-256x256@1x.png",
+        sizes: "256x256",
+        type: "image/png",
+      },
+      {
+        url: "/Icon-iOS-Default-256x256@2x.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
+  },
 };
 
 export default async function RootLayout({
